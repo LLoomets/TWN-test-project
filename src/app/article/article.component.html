@@ -1,1 +1,16 @@
-<h1>Siia tuleb artikkel</h1>
+<!-- @for (article of articleItems(); track $index) {
+    <h1>{{ article.title }}</h1>
+    <p>{{ article.intro }}</p>
+    
+    <img [src]="article.image.large" [alt]="article.image.alt" />
+} -->
+
+<div *ngIf="article() as article">
+    <h2>{{ article.title }}</h2>
+    <div [innerHTML] = "article.intro"></div>
+    <img [src]="article.image.large" [alt]="article.image.alt"/>
+    <p>{{ article.image.title }}</p>
+    <div [innerHTML]="article.body"></div>
+    <p>{{ article.tags }}</p>
+
+</div>
