@@ -12,12 +12,11 @@ import { catchError } from 'rxjs';
 })
 export class ArticleComponent implements OnInit {
   articleService = inject(ArticlesService);
-  //articleItems = signal<Article[]>([]);
   article = signal<Article | null>(null);
 
   ngOnInit(): void {
     this.articleService
-      .getArticlesFromApi()
+      .getArticle()
       .pipe(
         catchError((err) => {
           console.log(err);

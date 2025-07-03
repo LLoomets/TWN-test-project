@@ -1,1 +1,20 @@
-<h1>Siia tuleb tabel</h1>
+<h1>Nimekiri</h1>
+
+<table>
+    <tr>
+        <th>Eesnimi</th>
+        <th>Perekonnanimi</th>
+        <th>Sugu</th>
+        <th>Sünnipäev</th>
+        <th>Telefon</th>
+    </tr>
+    @for (article of articleItems(); track $index) {
+        <tr>
+            <td><span>{{ article.firstname }}</span></td>
+            <td><span>{{ article.surname }}</span></td>
+            <td><span>{{ article.sex }}</span></td>
+            <td><span>{{ article.personal_code }}</span></td>
+            <td><span>{{ article.phone }}</span></td>
+        </tr>
+    }
+</table>
