@@ -1,9 +1,15 @@
 <header>
-  <nav>
-    <span routerLink="/">siia tuleb logo</span>
-    <ul>
-        <li routerLink="/article">Artikkel</li>
-        <li routerLink="/list">Tabel</li>
-    </ul>
-  </nav>
+  <div class="menu-container">
+    <nav class="menu">
+      <a [routerLink]="['/']">
+        <img src="imgs/logo.svg" alt="TWN logo" class="logo">
+      </a>
+      <ul>
+        <li routerLink="/article">Artikkel <i class="fa-solid fa-file"></i></li>
+        <li routerLink="/list">Tabel <i class="fa-solid fa-table"></i></li>
+        <li routerLink="/life">Game of Life <i class="fa-regular fa-image"></i></li>
+      </ul>
+      </nav>
+  </div>
+  
 </header>
