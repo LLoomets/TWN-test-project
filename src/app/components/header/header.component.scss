@@ -24,37 +24,39 @@
 }
 
 ul {
-    display: block;
-    text-align: right;
     list-style: none;
     padding: 0;
     margin: 0;
-    color: var(--twn-textColor);
-    text-transform: uppercase;
-    font-size: 1.3rem;
-    font-family: var(--twn-textFont), sans-serif;
-    font-weight: 400;
-}
+    text-align: right;
 
-li {
-    cursor: pointer;
-    padding: .7rem 1rem;
-    margin: 0 -1.25rem;
-    transform-origin: right center;
-    transition: transform 0.25s;
+    li {
+        a {
+            display: block;
+            text-decoration: none;
+            color: var(--twn-textColor);
+            padding: 0.7rem 1rem;
+            margin: 0 -1.25rem;
+            text-transform: uppercase;
+            font-size: 1.3rem;
+            font-family: var(--twn-textFont), sans-serif;
+            font-weight: 400;
+            transform-origin: right center;
+            transition: transform 0.25s;
 
-    i {
-        margin-left: 8px;
-        transition: transform .25s;    
-    }
+            i {
+                margin-left: 8px;
+                transition: transform 0.25s;
+            }
 
-    &:hover {
-        color: var(--twn-linkHoverColor);
-        transform: scale(1.05);
+            &:hover,
+            &.active {
+                color: var(--twn-linkHoverColor);
+                transform: scale(1.05);
 
-        i {
-            transform: scale(1.4);
+                i {
+                    transform: scale(1.4);
+                }
+            }
         }
     }
-
 }
