@@ -1,9 +1,28 @@
 <header>
-  <nav>
-    <span routerLink="/">siia tuleb logo</span>
-    <ul>
-        <li routerLink="/article">Artikkel</li>
-        <li routerLink="/list">Tabel</li>
-    </ul>
-  </nav>
+  <div class="menu-container">
+    <nav class="menu">
+      <a [routerLink]="['/']">
+        <img src="imgs/logo.svg" alt="TWN logo" class="logo">
+      </a>
+      <ul>
+        <li>
+          <a [routerLink]="'/article'" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+            Artikkel <i class="fa-solid fa-file"></i>
+          </a>
+        </li>
+        <li>
+          <a routerLink="/list" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+            Tabel <i class="fa-solid fa-table"></i>
+            </a>
+        </li>      
+        <li>
+          <a routerLink="/life" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+            Game of Life 
+            <i class="fa-regular fa-image"></i>
+          </a>
+        </li>
+      </ul>
+      </nav>
+  </div>
+  
 </header>
