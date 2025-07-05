@@ -40,12 +40,21 @@ li {
     cursor: pointer;
     padding: .7rem 1rem;
     margin: 0 -1.25rem;
-
-    &:hover {
-        color: var(--twn-linkHoverColor);
-    }
+    transform-origin: right center;
+    transition: transform 0.25s;
 
     i {
         margin-left: 8px;
+        transition: transform .25s;    
     }
+
+    &:hover {
+        color: var(--twn-linkHoverColor);
+        transform: scale(1.05);
+
+        i {
+            transform: scale(1.4);
+        }
+    }
+
 }
