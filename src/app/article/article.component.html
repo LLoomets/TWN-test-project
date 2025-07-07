@@ -2,8 +2,15 @@
     <div class="page-layout">
         <h1>{{ article.title }}</h1>
         <div [innerHTML]="article.intro" class="intro"></div>
-        <img [src]="article.image.large" [alt]="article.image.alt" />
-        <div [innerHTML]="article.image.title" class="image-title"></div>
+        <div class="image-wrapper">
+            <div class="image-blur-bg">
+                <img [src]="article.image.large" alt="" class="image-blur" />
+            </div>
+            <div class="image-foreground">
+                <img [src]="article.image.large" [alt]="article.image.alt" class="article-image" />
+            </div>
+            <div class="image-title">{{ article.image.title }}</div>    
+        </div>
         <div [innerHTML]="article.body" class="article-body"></div>
         <div [innerHTML]="article.tags" class="article-tags"></div>
     </div>
