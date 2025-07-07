@@ -1,9 +1,10 @@
-<div *ngIf="article() as article">
-    <h2>{{ article.title }}</h2>
-    <div [innerHTML] = "article.intro"></div>
-    <img [src]="article.image.large" [alt]="article.image.alt"/>
-    <p>{{ article.image.title }}</p>
-    <div [innerHTML]="article.body"></div>
-    <p>{{ article.tags }}</p>
-
+<div *ngIf="article() as article" class="page-container">
+    <div class="page-layout">
+        <h1>{{ article.title }}</h1>
+        <div [innerHTML]="article.intro" class="intro"></div>
+        <img [src]="article.image.large" [alt]="article.image.alt" />
+        <div [innerHTML]="article.image.title" class="image-title"></div>
+        <div [innerHTML]="article.body" class="article-body"></div>
+        <div [innerHTML]="article.tags" class="article-tags"></div>
+    </div>
 </div>

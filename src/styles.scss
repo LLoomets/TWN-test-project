@@ -60,14 +60,13 @@
   --twn-linkHoverColor: #03875c;
   --twn-blockColor: #efefef;
   --twn-menuWidth: 220px;
-  --twnMaxWidth: 1000px;
+  --twn-maxWidth: 1000px;
 }
 
 html,
 body {
   margin: 0;
   padding: 0;
-  height: 100vh;
   background-color: var(--twn-backgroundColor);
   color: var(--twn-alternateTextColor);
   font-family: var(--twn-textFont), sans-serif;
@@ -75,8 +74,34 @@ body {
 
 * {
   outline: none;
+  box-sizing: border-box;
 }
 
-main {
+h1, h2, h3, h4 {
+  font-family: var(--twn-font);
+}
+
+h1 {
+  font-size: 45px;
+  text-align: center;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.page-container {
+  display: block;
+  position: relative;
   margin-left: var(--twn-menuWidth);
+  height: 100vh;
+  padding: 5rem 2.5rem;
+  overflow: auto;
+}
+
+.page-layout, .page-container {
+  position: relative;
+}
+
+.page-layout {
+  max-width: var(--twn-maxWidth);
+  margin: 0 auto;
 }
