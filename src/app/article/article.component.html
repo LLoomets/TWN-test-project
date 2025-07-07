@@ -12,6 +12,8 @@
             <div class="image-title">{{ article.image.title }}</div>    
         </div>
         <div [innerHTML]="article.body" class="article-body"></div>
-        <div [innerHTML]="article.tags" class="article-tags"></div>
+        <div class="article-tags" *ngIf="article.tags?.length">
+            <span *ngFor="let tag of article.tags" class="tag">{{ tag }}</span>    
+        </div>
     </div>
 </div>

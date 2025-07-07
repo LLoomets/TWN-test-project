@@ -62,3 +62,12 @@
     background: rgba(0, 0, 0, 0.5);
     z-index: 3;
 }
+
+.article-tags .tag {
+    background-color: var(--twn-secondaryColor);
+    border-radius: 1.5rem;
+    padding: 0.5rem 1rem;
+    margin-right: 1rem; 
+    font-size: 14px;
+    font-weight: 700;
+}
