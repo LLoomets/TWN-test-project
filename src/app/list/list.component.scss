@@ -1,3 +1,22 @@
 table {
-    width: 100%;  
+    min-width: 100%;  
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+th, td {
+    width: 20%;
+    padding: 10px 16px;
+    border-bottom: 1px solid #fff;
+    overflow: hidden;
+}
+
+th {
+    background-color: #333;
+    color: #fff;
+    text-align: left;
+}
+
+tr:nth-child(even) {
+    background-color: rgba($color: #fff, $alpha: .1); 
 }
