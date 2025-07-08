@@ -16,8 +16,8 @@
                 <tr>
                     <td><span>{{ article.firstname }}</span></td>
                     <td><span>{{ article.surname }}</span></td>
-                    <td><span>{{ article.sex }}</span></td>
-                    <td><span>{{ article.personal_code }}</span></td>
+                    <td><span>{{ getSexLabel(article.sex) }}</span></td>
+                    <td><span>{{ getBirthDateFromId(article.personal_code) }}</span></td>
                     <td><span>{{ article.phone }}</span></td>
                 </tr>       
                 }
