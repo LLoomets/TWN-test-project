@@ -47,6 +47,14 @@ export class ListComponent implements OnInit {
     }
 
     const sorted = [...this.articleItems()].sort((a,b) => {
+      if (field === 'sex') {
+        const order = { 'f' : 0, 'm' : 1};
+        const valA = order[a.sex] ?? 2;
+        const valB = order[b.sex] ?? 2;
+
+        return this.sortDirection === 'asc' ? valA - valB : valB - valA;
+      }
+
       const valA = (a[field] ?? '').toString().toLowerCase();
       const valB = (b[field] ?? '').toString().toLowerCase();
 

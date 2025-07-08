@@ -12,7 +12,7 @@ export interface Article {
     phone: string;
     date: number;
     tags: string[];
-    sex: string;
+    sex: 'f' | 'm';
     firstname: string;
     surname: string;
     email: string;
