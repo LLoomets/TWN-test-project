@@ -20,3 +20,13 @@ th {
 tr:nth-child(even) {
     background-color: rgba($color: #fff, $alpha: .1); 
 }
+
+.sort-btn {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    font: inherit;
+    cursor: pointer;
+    color: inherit;
+}

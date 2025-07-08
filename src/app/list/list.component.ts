@@ -12,6 +12,10 @@ import { catchError } from 'rxjs';
 export class ListComponent implements OnInit {
   articleService = inject(ArticlesService);
   articleItems = signal<Article[]>([]);
+  originalData: Article[] = [];
+
+  sortField: keyof Article | null = null;
+  sortDirection: 'asc' | 'desc' | 'default' = 'default';
 
   ngOnInit(): void {
     this.articleService
@@ -23,8 +27,40 @@ export class ListComponent implements OnInit {
         })
       )
       .subscribe((article: Article[]) => {
-        this.articleItems.set(article)
+        this.articleItems.set(article);
+        this.originalData = article;
       });
+  }
+
+  sortBy(field: keyof Article) {
+    if (this.sortField !== field) {
+      this.sortField = field;
+      this.sortDirection = 'asc';
+    } else {
+      this.sortDirection = this.sortDirection === 'asc' ? 'desc' : this.sortDirection === 'desc' ? 'default' : 'asc';
+    }
+
+    if (this.sortDirection === 'default') {
+      this.articleItems.set(this.originalData);
+      this.sortField = null;
+      return;
+    }
+
+    const sorted = [...this.articleItems()].sort((a,b) => {
+      const valA = (a[field] ?? '').toString().toLowerCase();
+      const valB = (b[field] ?? '').toString().toLowerCase();
+
+      const isEmptyA = !valA || valA.trim() === '';
+      const isEmptyB = !valB || valB.trim() === '';
+
+      if (isEmptyA && !isEmptyB) return 1;
+      if (!isEmptyA && isEmptyB) return -1;
+
+      if (valA < valB) return this.sortDirection === 'asc' ? -1 : 1;
+      if (valA > valB) return this.sortDirection === 'asc' ? 1 : -1;
+      return 0;
+    })
+    this.articleItems.set(sorted);
   }
 
   getSexLabel(sex : string): string {

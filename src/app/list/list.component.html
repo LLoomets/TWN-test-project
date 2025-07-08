@@ -4,8 +4,12 @@
         <table>
             <thead>
                 <tr>
-                    <th>Eesnimi</th>
-                    <th>Perekonnanimi</th>
+                    <th>
+                        <button (click)="sortBy('firstname')" class="sort-btn">Eesnimi</button>
+                    </th>
+                    <th>
+                        <button (click)="sortBy('surname')" class="sort-btn">Perekonnanimi</button>
+                    </th>
                     <th>Sugu</th>
                     <th>Sünnipäev</th>
                     <th>Telefon</th>
