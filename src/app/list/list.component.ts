@@ -2,10 +2,11 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { Article } from '../model/article.model';
 import { ArticlesService } from '../services/articles.service';
 import { catchError } from 'rxjs';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-list',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss'
 })
@@ -115,5 +116,12 @@ export class ListComponent implements OnInit {
     const day = idStr.substring(5,7);
 
     return `${day}.${month}.${year}`;
+  }
+
+  getSortIcon(field: keyof Article): string {
+    if (this.sortField !== field) return 'fa-solid fa-sort';
+    if (this.sortDirection === 'asc') return 'fa-solid fa-sort-down';
+    if (this.sortDirection === 'desc') return 'fa-solid fa-sort-up';
+    return 'fa-solid fa-sort';
   }
 }
