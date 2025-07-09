@@ -55,6 +55,29 @@ export class ListComponent implements OnInit {
         return this.sortDirection === 'asc' ? valA - valB : valB - valA;
       }
 
+      if (field === 'personal_code') {
+        const parseDate = (id: number): Date => {
+          const idStr = String(id);
+          const centuryCode = idStr.charAt(0);
+          let century = '';
+
+          if (centuryCode === '1' || centuryCode === '2') century = '18';
+          else if (centuryCode === '3' || centuryCode === '4') century = '19';
+          else if (centuryCode === '5' || centuryCode === '6') century = '20';
+
+          const year = parseInt(century + idStr.substring(1,3));
+          const month = parseInt(idStr.substring(3,5));
+          const day = parseInt(idStr.substring(5,7));
+
+          return new Date(year, month, day);
+        }
+
+        const dateA = parseDate(a.personal_code);
+        const dateB = parseDate(b.personal_code);
+
+        return this.sortDirection === 'asc' ? dateA.getTime() - dateB.getTime() : dateB.getTime() - dateA.getTime();
+      }
+
       const valA = (a[field] ?? '').toString().toLowerCase();
       const valB = (b[field] ?? '').toString().toLowerCase();
 
