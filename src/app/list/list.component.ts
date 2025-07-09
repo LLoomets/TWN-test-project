@@ -18,6 +18,8 @@ export class ListComponent implements OnInit {
   sortField: keyof Article | null = null;
   sortDirection: 'asc' | 'desc' | 'default' = 'default';
 
+  expandedRow: number | null = null;
+
   ngOnInit(): void {
     this.articleService
       .getArticleList()
@@ -123,5 +125,13 @@ export class ListComponent implements OnInit {
     if (this.sortDirection === 'asc') return 'fa-solid fa-sort-down';
     if (this.sortDirection === 'desc') return 'fa-solid fa-sort-up';
     return 'fa-solid fa-sort';
+  }
+
+  toggleExpand(index: number) {
+    if (this.expandedRow === index) {
+      this.expandedRow = null;
+    } else {
+      this.expandedRow = index;
+    }
   }
 }

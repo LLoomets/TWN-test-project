@@ -33,13 +33,21 @@
             </thead>
             <tbody>
                 @for (article of articleItems(); track $index) {
-                <tr>
+                <tr (click)="toggleExpand($index)">
                     <td><span>{{ article.firstname }}</span></td>
                     <td><span>{{ article.surname }}</span></td>
                     <td><span>{{ getSexLabel(article.sex) }}</span></td>
                     <td><span>{{ getBirthDateFromId(article.personal_code) }}</span></td>
                     <td><span>{{ article.phone }}</span></td>
-                </tr>       
+                </tr>  
+                <tr *ngIf="expandedRow === $index" class="expanded-row">
+                    <td colspan="5">
+                        <div class="list-details">
+                            <img [src]="article.image.large" alt="article.image-alt" class="list-image">
+                            <div [innerHTML]="article.body.slice(0, 300) + (article.body.length > 300 ? '…' : '')" class="list-body"></div>
+                        </div>
+                    </td>
+                </tr>     
                 }
             </tbody>
         </table>
