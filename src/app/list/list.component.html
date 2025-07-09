@@ -4,10 +4,30 @@
         <table>
             <thead>
                 <tr>
-                    <th>Eesnimi</th>
-                    <th>Perekonnanimi</th>
-                    <th>Sugu</th>
-                    <th>Sünnipäev</th>
+                    <th>
+                        <button (click)="sortBy('firstname')" class="sort-btn">
+                            Eesnimi
+                            <i [ngClass]="getSortIcon('firstname')"></i>
+                        </button>
+                    </th>
+                    <th>
+                        <button (click)="sortBy('surname')" class="sort-btn">
+                            Perekonnanimi
+                            <i [ngClass]="getSortIcon('surname')"></i>
+                        </button>
+                    </th>
+                    <th>
+                        <button (click)="sortBy('sex')" class="sort-btn">
+                            Sugu
+                            <i [ngClass]="getSortIcon('sex')"></i>
+                        </button>
+                    </th>
+                    <th>
+                        <button (click)="sortBy('personal_code')" class="sort-btn">
+                            Sünnipäev
+                            <i [ngClass]="getSortIcon('personal_code')"></i>
+                        </button>
+                    </th>
                     <th>Telefon</th>
                 </tr>
             </thead>

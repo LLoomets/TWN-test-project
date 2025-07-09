@@ -2,16 +2,21 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { Article } from '../model/article.model';
 import { ArticlesService } from '../services/articles.service';
 import { catchError } from 'rxjs';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-list',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss'
 })
 export class ListComponent implements OnInit {
   articleService = inject(ArticlesService);
   articleItems = signal<Article[]>([]);
+  originalData: Article[] = [];
+
+  sortField: keyof Article | null = null;
+  sortDirection: 'asc' | 'desc' | 'default' = 'default';
 
   ngOnInit(): void {
     this.articleService
@@ -23,8 +28,71 @@ export class ListComponent implements OnInit {
         })
       )
       .subscribe((article: Article[]) => {
-        this.articleItems.set(article)
+        this.articleItems.set(article);
+        this.originalData = article;
       });
+  }
+
+  sortBy(field: keyof Article) {
+    if (this.sortField !== field) {
+      this.sortField = field;
+      this.sortDirection = 'asc';
+    } else {
+      this.sortDirection = this.sortDirection === 'asc' ? 'desc' : this.sortDirection === 'desc' ? 'default' : 'asc';
+    }
+
+    if (this.sortDirection === 'default') {
+      this.articleItems.set(this.originalData);
+      this.sortField = null;
+      return;
+    }
+
+    const sorted = [...this.articleItems()].sort((a,b) => {
+      if (field === 'sex') {
+        const order = { 'f' : 0, 'm' : 1};
+        const valA = order[a.sex] ?? 2;
+        const valB = order[b.sex] ?? 2;
+
+        return this.sortDirection === 'asc' ? valA - valB : valB - valA;
+      }
+
+      if (field === 'personal_code') {
+        const parseDate = (id: number): Date => {
+          const idStr = String(id);
+          const centuryCode = idStr.charAt(0);
+          let century = '';
+
+          if (centuryCode === '1' || centuryCode === '2') century = '18';
+          else if (centuryCode === '3' || centuryCode === '4') century = '19';
+          else if (centuryCode === '5' || centuryCode === '6') century = '20';
+
+          const year = parseInt(century + idStr.substring(1,3));
+          const month = parseInt(idStr.substring(3,5));
+          const day = parseInt(idStr.substring(5,7));
+
+          return new Date(year, month, day);
+        }
+
+        const dateA = parseDate(a.personal_code);
+        const dateB = parseDate(b.personal_code);
+
+        return this.sortDirection === 'asc' ? dateA.getTime() - dateB.getTime() : dateB.getTime() - dateA.getTime();
+      }
+
+      const valA = (a[field] ?? '').toString().toLowerCase();
+      const valB = (b[field] ?? '').toString().toLowerCase();
+
+      const isEmptyA = !valA || valA.trim() === '';
+      const isEmptyB = !valB || valB.trim() === '';
+
+      if (isEmptyA && !isEmptyB) return 1;
+      if (!isEmptyA && isEmptyB) return -1;
+
+      if (valA < valB) return this.sortDirection === 'asc' ? -1 : 1;
+      if (valA > valB) return this.sortDirection === 'asc' ? 1 : -1;
+      return 0;
+    })
+    this.articleItems.set(sorted);
   }
 
   getSexLabel(sex : string): string {
@@ -48,5 +116,12 @@ export class ListComponent implements OnInit {
     const day = idStr.substring(5,7);
 
     return `${day}.${month}.${year}`;
+  }
+
+  getSortIcon(field: keyof Article): string {
+    if (this.sortField !== field) return 'fa-solid fa-sort';
+    if (this.sortDirection === 'asc') return 'fa-solid fa-sort-down';
+    if (this.sortDirection === 'desc') return 'fa-solid fa-sort-up';
+    return 'fa-solid fa-sort';
   }
 }
