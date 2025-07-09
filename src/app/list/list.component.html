@@ -33,7 +33,7 @@
             </thead>
             <tbody>
                 @for (article of articleItems(); track $index) {
-                <tr (click)="toggleExpand($index)">
+                <tr (click)="toggleExpand($index)" class="clickable-row">
                     <td><span>{{ article.firstname }}</span></td>
                     <td><span>{{ article.surname }}</span></td>
                     <td><span>{{ getSexLabel(article.sex) }}</span></td>

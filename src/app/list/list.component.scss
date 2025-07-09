@@ -33,5 +33,24 @@ tr:nth-child(even) {
 
 .list-image {
     width: 200px;
-    height: auto;
+    height: 200px;
+    object-fit: cover;
+    margin: 6px;
+}
+
+.expanded-row {
+    background-color: #fff !important;
+    color: #333 !important;
+}
+
+.list-details {
+    display: flex;
+}
+
+.list-body {
+    padding-left: 1rem;
+}
+
+.clickable-row {
+    cursor: pointer;
 }
