@@ -32,7 +32,7 @@
                 </tr>
             </thead>
             <tbody>
-                @for (article of articleItems(); track $index) {
+                @for (article of paginatedList; let i = $index; track $index) {
                 <tr (click)="toggleExpand($index)" class="clickable-row">
                     <td><span>{{ article.firstname }}</span></td>
                     <td><span>{{ article.surname }}</span></td>
@@ -51,5 +51,14 @@
                 }
             </tbody>
         </table>
+        <div class="pagination">
+            <button 
+            *ngFor="let page of [].constructor(totalPages); let i = index" 
+            (click)="changePage(i + 1)"
+            [class.active]="currentPage() === i+1"
+            >
+                {{ i + 1 }}
+            </button>
+        </div>
     </div>
 </div>
