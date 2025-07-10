@@ -20,6 +20,9 @@ export class ListComponent implements OnInit {
 
   expandedRow: number | null = null;
 
+  currentPage = signal(1);
+  rowsPerPage = 10;
+
   ngOnInit(): void {
     this.articleService
       .getArticleList()
@@ -133,5 +136,41 @@ export class ListComponent implements OnInit {
     } else {
       this.expandedRow = index;
     }
+  }
+
+  get paginatedList() : Article[] {
+    const start = (this.currentPage() - 1) * this.rowsPerPage;
+    const end = start + this.rowsPerPage;
+    return this.articleItems().slice(start, end);
+  }
+
+  get totalPages(): number {
+    return Math.ceil(this.articleItems().length / this.rowsPerPage);
+  }
+
+  changePage(page: number) {
+    this.currentPage.set(page);
+    this.expandedRow = null;
+  }
+
+  visiblePages(): number[] {
+    const current = this.currentPage();
+    const total = this.totalPages;
+    const maxVisible = 5;
+  
+    let start = Math.max(1, current - Math.floor(maxVisible / 2));
+    let end = start + maxVisible - 1;
+  
+    if (end > total) {
+      end = total;
+      start = Math.max(1, end - maxVisible + 1);
+    }
+  
+    const pages = [];
+    for (let i = start; i <= end; i++) {
+      pages.push(i);
+    }
+  
+    return pages;
   }
 }
