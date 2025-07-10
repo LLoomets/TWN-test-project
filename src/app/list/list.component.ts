@@ -152,4 +152,25 @@ export class ListComponent implements OnInit {
     this.currentPage.set(page);
     this.expandedRow = null;
   }
+
+  visiblePages(): number[] {
+    const current = this.currentPage();
+    const total = this.totalPages;
+    const maxVisible = 5;
+  
+    let start = Math.max(1, current - Math.floor(maxVisible / 2));
+    let end = start + maxVisible - 1;
+  
+    if (end > total) {
+      end = total;
+      start = Math.max(1, end - maxVisible + 1);
+    }
+  
+    const pages = [];
+    for (let i = start; i <= end; i++) {
+      pages.push(i);
+    }
+  
+    return pages;
+  }
 }

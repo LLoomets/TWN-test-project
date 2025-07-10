@@ -54,3 +54,32 @@ tr:nth-child(even) {
 .clickable-row {
     cursor: pointer;
 }
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+
+    button {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+        border-radius: 50%;
+        background-color: transparent;
+        border: 1px solid transparent;
+        color: #fff;
+        cursor: pointer;
+        font-weight: 700;
+        padding: 0;
+        margin: .5rem;
+
+        &:hover {
+            border-color: #fff;
+        }
+
+        &.active {
+            background-color: #fff;
+            color: #333;
+        }
+    }
+}
