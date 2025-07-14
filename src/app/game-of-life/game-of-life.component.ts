@@ -58,7 +58,6 @@ export class GameOfLifeComponent implements AfterViewInit {
         c.rect(colIndex * res, rowIndex * res, res, res);
         c.fillStyle = cell ? 'black' : 'white';
         c.fill();
-        c.stroke();
         c.closePath();
       });
     });
