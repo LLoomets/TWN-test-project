@@ -39,9 +39,16 @@ export class GameOfLifeComponent implements AfterViewInit {
     this.gameBoard = board;
 
     this.render(this.gameBoard);
+    this.animate();
   }
 
-  render(board: BitArray[]) {
+  private animate() {
+    requestAnimationFrame(() => this.animate());
+    this.render(this.gameBoard);
+    this.createNextGeneration(this.gameBoard);
+  }
+
+  private render(board: BitArray[]) {
     const c = this.ctx;
     const res = RESOLUTION;
 
