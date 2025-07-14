@@ -38,6 +38,22 @@ export class GameOfLifeComponent implements AfterViewInit {
 
     this.gameBoard = board;
 
-    console.log(this.gameBoard);
+    this.render(this.gameBoard);
+  }
+
+  render(board: BitArray[]) {
+    const c = this.ctx;
+    const res = RESOLUTION;
+
+    board.forEach((row, rowIndex) => {
+      row.forEach((cell, colIndex) => {
+        c.beginPath();
+        c.rect(colIndex * res, rowIndex * res, res, res);
+        c.fillStyle = cell ? 'black' : 'white';
+        c.fill();
+        c.stroke();
+        c.closePath();
+      });
+    });
   }
 }
