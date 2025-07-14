@@ -52,11 +52,13 @@ export class GameOfLifeComponent implements AfterViewInit {
     const c = this.ctx;
     const res = RESOLUTION;
 
+    c.clearRect(0, 0, BOARD_WIDTH, BOARD_HEIGHT);
+
     board.forEach((row, rowIndex) => {
       row.forEach((cell, colIndex) => {
         c.beginPath();
         c.rect(colIndex * res, rowIndex * res, res, res);
-        c.fillStyle = cell ? 'black' : 'white';
+        c.fillStyle = cell ? 'white' : '#adf0d020';
         c.fill();
         c.closePath();
       });
