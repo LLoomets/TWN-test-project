@@ -1,6 +1,14 @@
 <div class="page-container">
     <div class="page-layout">
         <h1>Conway's Game of Life</h1>
+        <div class="controls">
+            <label for="speedSelect">Speed</label>
+            <select name="speedSelect" id="speedSelect" [(ngModel)]="speed" (change)="changeSpeed()">
+                <option value="slow">Slow</option>
+                <option value="normal">Normal</option>
+                <option value="fast">Fast</option>
+            </select>
+        </div>
         <canvas #gameboard></canvas>
     </div>
 </div>

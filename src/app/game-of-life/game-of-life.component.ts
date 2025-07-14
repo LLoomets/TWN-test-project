@@ -1,3 +1,4 @@
+import { FormsModule } from '@angular/forms';
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 
 const BOARD_WIDTH = 1000;
@@ -9,7 +10,7 @@ export type BitArray = Bit[];
 
 @Component({
   selector: 'app-game-of-life',
-  imports: [],
+  imports: [FormsModule],
   templateUrl: './game-of-life.component.html',
   styleUrl: './game-of-life.component.scss',
 })
@@ -20,6 +21,14 @@ export class GameOfLifeComponent implements AfterViewInit {
   private ctx!: CanvasRenderingContext2D;
 
   gameBoard!: BitArray[];
+
+  speed: 'slow' | 'normal' | 'fast' = 'normal';
+
+  private speedDelays = {
+    slow: 150,
+    normal: 75,
+    fast: 25,
+  };
 
   ngAfterViewInit(): void {
     this.canvas.nativeElement.width = BOARD_WIDTH;
@@ -42,10 +51,24 @@ export class GameOfLifeComponent implements AfterViewInit {
     this.animate();
   }
 
+  private animationInterval: any;
+
   private animate() {
-    requestAnimationFrame(() => this.animate());
-    this.render(this.gameBoard);
-    this.createNextGeneration(this.gameBoard);
+    const step = () => {
+      this.render(this.gameBoard);
+      this.createNextGeneration(this.gameBoard);
+
+      this.animationInterval = setTimeout(() => {
+        step();
+      }, this.speedDelays[this.speed]);
+    };
+
+    step();
+  }
+
+  changeSpeed() {
+    clearTimeout(this.animationInterval);
+    this.animate();
   }
 
   private render(board: BitArray[]) {
