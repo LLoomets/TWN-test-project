@@ -2,7 +2,7 @@ import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 
 const BOARD_WIDTH = 1000;
 const BOARD_HEIGHT = 400;
-const RESOLUTION = 10; 
+const RESOLUTION = 10;
 
 export type Bit = 0 | 1;
 export type BitArray = Bit[];
@@ -55,5 +55,38 @@ export class GameOfLifeComponent implements AfterViewInit {
         c.closePath();
       });
     });
+  }
+
+  private createNextGeneration(board: BitArray[]) {
+    const nextGeneration: BitArray[] = board.map((innerArr) => [...innerArr]);
+
+    board.forEach((row, rowIndex) => {
+      row.forEach((cell, colIndex) => {
+        const rowAbove = board[rowIndex - 1] || [];
+        const rowBelow = board[rowIndex + 1] || [];
+        const fieldBefore = board[rowIndex][colIndex - 1];
+        const fieldAfter = board[rowIndex][colIndex + 1];
+
+        const countOfLivingNeighbors = [
+          rowAbove[colIndex - 1],
+          rowAbove[colIndex],
+          rowAbove[colIndex + 1],
+          rowBelow[colIndex - 1],
+          rowBelow[colIndex],
+          rowBelow[colIndex + 1],
+          fieldBefore,
+          fieldAfter,
+        ].reduce((pv, cv) => (cv != null ? pv + cv : pv), 0 as number);
+
+        const becomeLivingCellInAnyCase = countOfLivingNeighbors === 3;
+        const keepAlive = cell && countOfLivingNeighbors === 2;
+
+        const newCellValue = becomeLivingCellInAnyCase || keepAlive ? 1 : 0;
+
+        nextGeneration[rowIndex][colIndex] = newCellValue;
+      });
+    });
+
+    this.gameBoard = nextGeneration;
   }
 }
