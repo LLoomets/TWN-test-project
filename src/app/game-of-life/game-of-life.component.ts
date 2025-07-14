@@ -1,5 +1,6 @@
 import { FormsModule } from '@angular/forms';
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 const BOARD_WIDTH = 1000;
 const BOARD_HEIGHT = 400;
@@ -10,7 +11,7 @@ export type BitArray = Bit[];
 
 @Component({
   selector: 'app-game-of-life',
-  imports: [FormsModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './game-of-life.component.html',
   styleUrl: './game-of-life.component.scss',
 })
@@ -19,8 +20,19 @@ export class GameOfLifeComponent implements AfterViewInit {
   canvas!: ElementRef<HTMLCanvasElement>;
 
   private ctx!: CanvasRenderingContext2D;
-
+  private animationInterval: any;
   gameBoard!: BitArray[];
+
+  gridCols = 70;
+  gridRows = 30;
+
+  colOptions = [10, 20, 30, 40, 50, 60, 70, 80];
+  rowOptions = [10, 20, 30, 40, 50];
+
+  readonly CELL_SIZE = 12;
+
+  tempGridCols = this.gridCols;
+  tempGridRows = this.gridRows;
 
   speed: 'slow' | 'normal' | 'fast' = 'normal';
 
@@ -31,27 +43,27 @@ export class GameOfLifeComponent implements AfterViewInit {
   };
 
   ngAfterViewInit(): void {
-    this.canvas.nativeElement.width = BOARD_WIDTH;
-    this.canvas.nativeElement.height = BOARD_HEIGHT;
-
     this.ctx = this.canvas.nativeElement.getContext('2d')!;
-
-    const numOfRows = BOARD_HEIGHT / RESOLUTION;
-    const numOfCols = BOARD_WIDTH / RESOLUTION;
-
-    const oneOrZero = () => (Math.random() > 0.5 ? 1 : 0);
-
-    const board: BitArray[] = new Array(numOfRows)
-      .fill(0)
-      .map(() => new Array(numOfCols).fill(0).map(oneOrZero));
-
-    this.gameBoard = board;
-
-    this.render(this.gameBoard);
+    this.resetBoard();
     this.animate();
   }
 
-  private animationInterval: any;
+  resetBoard() {
+    this.canvas.nativeElement.width = this.gridCols * this.CELL_SIZE;
+    this.canvas.nativeElement.height = this.gridRows * this.CELL_SIZE;
+
+    const oneOrZero = () => (Math.random() > 0.5 ? 1 : 0);
+
+    this.gameBoard = new Array(this.gridRows)
+      .fill(0)
+      .map(() => new Array(this.gridCols).fill(0).map(oneOrZero));
+  }
+
+  applyGridSize() {
+    this.gridCols = Number(this.tempGridCols);
+    this.gridRows = Number(this.tempGridRows);
+    this.resetBoard();
+  }
 
   private animate() {
     const step = () => {
@@ -73,14 +85,17 @@ export class GameOfLifeComponent implements AfterViewInit {
 
   private render(board: BitArray[]) {
     const c = this.ctx;
-    const res = RESOLUTION;
-
-    c.clearRect(0, 0, BOARD_WIDTH, BOARD_HEIGHT);
+    c.clearRect(0, 0, this.canvas.nativeElement.width, this.canvas.nativeElement.height);
 
     board.forEach((row, rowIndex) => {
       row.forEach((cell, colIndex) => {
         c.beginPath();
-        c.rect(colIndex * res, rowIndex * res, res, res);
+        c.rect(
+          colIndex * this.CELL_SIZE,
+          rowIndex * this.CELL_SIZE,
+          this.CELL_SIZE,
+          this.CELL_SIZE
+        );
         c.fillStyle = cell ? 'white' : '#adf0d020';
         c.fill();
         c.closePath();

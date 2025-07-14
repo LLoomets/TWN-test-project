@@ -8,6 +8,16 @@
                 <option value="normal">Normal</option>
                 <option value="fast">Fast</option>
             </select>
+
+            <label>Grid width</label>
+            <select [(ngModel)]="tempGridCols">
+              <option *ngFor="let col of colOptions" [value]="col">{{ col }}</option>
+            </select>
+            <label>Grid height</label>
+            <select [(ngModel)]="tempGridRows">
+              <option *ngFor="let row of rowOptions" [value]="row">{{ row }}</option>
+            </select>
+            <button (click)="applyGridSize()">Apply</button>
         </div>
         <canvas #gameboard></canvas>
     </div>
