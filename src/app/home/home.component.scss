@@ -1,24 +1,14 @@
-.home-container {
-    position: relative;
-    margin-left: var(--twn-menuWidth);
-    height: 100vh;
+.page-container {
     display: flex;
-    justify-content: center;
     align-items: center;
     max-width: var(--twn-MaxWidth);
-    margin-right: auto;
-    padding: 0 2.5rem;
 
-    .home-content {
+    .page-layout {
         text-align: center;
 
-        .home-heading {
-            font-family: var(--twn-font);
-            font-weight: 700;
+        h1{
             margin: 0;
             color: var(--twn-highlightColor);
-            text-transform: uppercase;
-            font-size: 45px;
         }
 
         .home-subheading {
