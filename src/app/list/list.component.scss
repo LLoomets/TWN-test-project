@@ -1,3 +1,8 @@
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
 table {
     min-width: 100%;  
     border-collapse: collapse;
@@ -9,6 +14,7 @@ th, td {
     padding: 10px 16px;
     border-bottom: 1px solid #fff;
     overflow: hidden;
+    white-space: nowrap;
 }
 
 th {
@@ -57,6 +63,7 @@ tr:nth-child(even) {
 
 .pagination {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     margin-top: 1rem;
 
@@ -80,6 +87,20 @@ tr:nth-child(even) {
         &.active {
             background-color: #fff;
             color: #333;
+        }
+    }
+}
+
+@media (max-width: 960px) {
+    th, td {
+        font-size: 14px;
+        padding: 6px 8px
+    }
+
+    .pagination {
+        button {
+            width: 2rem;
+            height: 2rem;
         }
     }
 }
