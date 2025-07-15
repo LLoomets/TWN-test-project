@@ -17,6 +17,9 @@
             <select [(ngModel)]="tempGridRows">
               <option *ngFor="let row of rowOptions" [value]="row">{{ row }}</option>
             </select>
+            <button (click)="togglePause()">
+              {{ paused ? 'Resume' : 'Pause' }}
+            </button>
             <button (click)="applyGridSize()">Apply</button>
         </div>
         <canvas #gameboard></canvas>

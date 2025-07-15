@@ -2,10 +2,6 @@ import { FormsModule } from '@angular/forms';
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-const BOARD_WIDTH = 1000;
-const BOARD_HEIGHT = 400;
-const RESOLUTION = 10;
-
 export type Bit = 0 | 1;
 export type BitArray = Bit[];
 
@@ -33,6 +29,8 @@ export class GameOfLifeComponent implements AfterViewInit {
 
   tempGridCols = this.gridCols;
   tempGridRows = this.gridRows;
+
+  paused = false;
 
   speed: 'slow' | 'normal' | 'fast' = 'normal';
 
@@ -63,10 +61,29 @@ export class GameOfLifeComponent implements AfterViewInit {
     this.gridCols = Number(this.tempGridCols);
     this.gridRows = Number(this.tempGridRows);
     this.resetBoard();
+
+    if (this.paused) {
+      this.paused = false;
+      this.animate();
+    }
+  }
+
+  togglePause() {
+    this.paused = !this.paused;
+
+    if (!this.paused) {
+      this.animate();
+    } else {
+      clearTimeout(this.animationInterval);
+    }
   }
 
   private animate() {
+    if (this.paused) return;
+
     const step = () => {
+      if (this.paused) return;
+
       this.render(this.gameBoard);
       this.createNextGeneration(this.gameBoard);
 
@@ -85,7 +102,12 @@ export class GameOfLifeComponent implements AfterViewInit {
 
   private render(board: BitArray[]) {
     const c = this.ctx;
-    c.clearRect(0, 0, this.canvas.nativeElement.width, this.canvas.nativeElement.height);
+    c.clearRect(
+      0,
+      0,
+      this.canvas.nativeElement.width,
+      this.canvas.nativeElement.height
+    );
 
     board.forEach((row, rowIndex) => {
       row.forEach((cell, colIndex) => {
