@@ -89,6 +89,11 @@ h1 {
 }
 
 .page-container {
+  background-image: url(../public/imgs/bg-deco-left.svg), url(../public/imgs/bg-deco-right.svg);
+  background-position: var(--twn-menuWidth) bottom, 100% 0;
+  background-repeat: no-repeat;
+  background-size: 150px, 250px;
+  background-attachment: fixed;
   display: block;
   position: relative;
   margin-left: var(--twn-menuWidth);
