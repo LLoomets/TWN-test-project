@@ -1,28 +1,47 @@
 <header>
-  <div class="menu-container">
+  <div class="top-menu" *ngIf="true">
+    <button class="burger" (click)="toggleSidebar()">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+    <div class="top-menu-logo-container">
+      <img src="imgs/logo.svg" alt="TWN logo" class="top-logo" />
+    </div>
+  </div>
+  <div class="menu-container" [class.hidden]="isSidebarHidden">
     <nav class="menu">
       <a [routerLink]="['/']">
-        <img src="imgs/logo.svg" alt="TWN logo" class="logo">
+        <img src="imgs/logo.svg" alt="TWN logo" class="logo" />
       </a>
       <ul>
         <li>
-          <a [routerLink]="'/article'" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+          <a
+            [routerLink]="'/article'"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
             Artikkel <i class="fa-solid fa-file"></i>
           </a>
         </li>
         <li>
-          <a routerLink="/list" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+          <a
+            routerLink="/list"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
             Tabel <i class="fa-solid fa-table"></i>
           </a>
-        </li>      
+        </li>
         <li>
-          <a routerLink="/life" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-            Game of Life 
+          <a
+            routerLink="/life"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            Game of Life
             <i class="fa-regular fa-image"></i>
           </a>
         </li>
       </ul>
-      </nav>
+    </nav>
   </div>
-  
 </header>
