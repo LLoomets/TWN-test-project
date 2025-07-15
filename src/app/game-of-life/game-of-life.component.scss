@@ -1,0 +1,76 @@
+canvas {
+  background-color: transparent;
+  max-width: var(--twn-maxWidth);
+}
+
+.canvas-container {
+  display: flex;
+  justify-content: center;
+  padding-top: 1rem;
+  overflow-x: auto;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+
+  .control-section {
+    display: flex;
+    flex-direction: column;
+    min-width: 120px;
+    flex-grow: 1;
+
+  }
+
+  label {
+    font-size: 1rem;
+    margin-bottom: 0.25rem;
+  }
+
+  select,
+  button {
+    height: 38px;
+    padding: 0 1rem;
+    cursor: pointer;
+    width: 100%;
+  }
+
+  .select-wrapper {
+    position: relative;
+    width: 100%;
+
+    select {
+      width: 100%;
+      padding-right: 2.5rem;
+      appearance: none;
+      border-radius: 0.5rem;
+    }
+
+    .icon-container {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      width: 38px;
+      height: 38px;
+      pointer-events: none;
+      color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  .control-section.control-button {
+    justify-content: flex-end;
+  }
+
+  button {
+    color: var(--twn-textColor);
+    background-color: var(--twn-highlightColor);
+    border-bottom: .25rem solid var(--twn-linkHoverColor);
+    text-transform: uppercase;
+    font-family: var(--twn-font);
+    font-weight: 700;
+  }
+}

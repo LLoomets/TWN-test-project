@@ -20,4 +20,10 @@ export const routes: Routes = [
         return import('./list/list.component').then((m) => m.ListComponent);
     },
   },
+  {
+    path: 'life',
+    loadComponent: () => {
+      return import('./game-of-life/game-of-life.component').then((m) => m.GameOfLifeComponent);
+    }
+  }
 ];

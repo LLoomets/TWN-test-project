@@ -1,0 +1,59 @@
+<div class="page-container">
+  <div class="page-layout">
+    <h1>Conway's Game of Life</h1>
+    <div class="controls">
+      <div class="control-section">
+        <label>Grid width</label>
+        <div class="select-wrapper">
+          <select [(ngModel)]="tempGridCols">
+            <option *ngFor="let col of colOptions" [value]="col">
+              {{ col }}
+            </option>
+          </select>
+          <div class="icon-container">
+            <i class="fa-solid fa-chevron-down"></i>
+          </div>
+        </div>
+      </div>
+
+      <div class="control-section">
+        <label>Grid height</label>
+        <div class="select-wrapper">
+          <select [(ngModel)]="tempGridRows">
+            <option *ngFor="let row of rowOptions" [value]="row">
+              {{ row }}
+            </option>
+          </select>
+          <div class="icon-container">
+            <i class="fa-solid fa-chevron-down"></i>
+          </div>
+        </div>
+      </div>
+
+      <div class="control-section">
+        <label>Speed</label>
+        <div class="select-wrapper">
+          <select [(ngModel)]="speed" (change)="changeSpeed()">
+            <option value="slow">Slow</option>
+            <option value="normal">Normal</option>
+            <option value="fast">Fast</option>
+          </select>
+          <div class="icon-container">
+            <i class="fa-solid fa-chevron-down"></i>
+          </div>
+        </div>
+      </div>
+      <div class="control-section control-button">
+        <button (click)="togglePause()">
+          {{ paused ? "Resume" : "Pause" }}
+        </button>
+      </div>
+      <div class="control-section control-button">
+        <button (click)="applyGridSize()">Apply</button>
+      </div>
+    </div>
+    <div class="canvas-container">
+      <canvas #gameboard></canvas>
+    </div>
+  </div>
+</div>
