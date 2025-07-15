@@ -1,7 +1,7 @@
 <header>
   <div class="top-menu" *ngIf="true">
     <button class="burger" (click)="toggleSidebar()">
-      <i class="fa-solid fa-bars"></i>
+      <i class="fa-solid" [ngClass]="isSidebarHidden ? 'fa-bars' : 'fa-xmark'"></i>
     </button>
     <div class="top-menu-logo-container">
       <img src="imgs/logo.svg" alt="TWN logo" class="top-logo" />
