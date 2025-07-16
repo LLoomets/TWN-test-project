@@ -1,6 +1,6 @@
 <div class="page-container">
     <div class="page-layout">
-        <ng-container *ngIf="article() as article">
+        <ng-container *ngIf="article() as article; else loadingBlock">
             <h1>{{ article.title }}</h1>
                 <div [innerHTML]="article.intro" class="intro"></div>
                 <div class="image-wrapper">
@@ -17,5 +17,10 @@
                     <span *ngFor="let tag of article.tags" class="tag">{{ tag }}</span>    
                 </div>
         </ng-container>
+        <ng-template #loadingBlock>
+            <div class="loading-wrapper">
+                <img src="imgs/loader.svg" alt="Loading..." class="loader-img" />
+            </div>
+        </ng-template>
     </div>
 </div>
