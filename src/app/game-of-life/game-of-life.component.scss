@@ -68,9 +68,15 @@ canvas {
   button {
     color: var(--twn-textColor);
     background-color: var(--twn-highlightColor);
+    border: none;
     border-bottom: .25rem solid var(--twn-linkHoverColor);
     text-transform: uppercase;
     font-family: var(--twn-font);
     font-weight: 700;
+
+    &:hover {
+      background-color: #41e592;
+      transition: background-color .25s ease-out;
+    }
   }
 }
