@@ -110,3 +110,18 @@ h1 {
   max-width: var(--twn-maxWidth);
   margin: 0 auto;
 }
+
+@media screen and (max-width: 960px) {
+  h1 {
+    font-size: 36px;
+  }
+
+  .page-container {
+    margin-left:0;
+    background-position: 0 bottom, 100% 0;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    padding-top: 7.5rem
+}
+  
+}

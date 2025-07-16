@@ -1,56 +1,58 @@
 <div class="page-container">
     <div class="page-layout">
         <h1>Nimekiri</h1>
-        <table>
-            <thead>
-                <tr>
-                    <th>
-                        <button (click)="sortBy('firstname')" class="sort-btn">
-                            Eesnimi
-                            <i [ngClass]="getSortIcon('firstname')"></i>
-                        </button>
-                    </th>
-                    <th>
-                        <button (click)="sortBy('surname')" class="sort-btn">
-                            Perekonnanimi
-                            <i [ngClass]="getSortIcon('surname')"></i>
-                        </button>
-                    </th>
-                    <th>
-                        <button (click)="sortBy('sex')" class="sort-btn">
-                            Sugu
-                            <i [ngClass]="getSortIcon('sex')"></i>
-                        </button>
-                    </th>
-                    <th>
-                        <button (click)="sortBy('personal_code')" class="sort-btn">
-                            Sünnipäev
-                            <i [ngClass]="getSortIcon('personal_code')"></i>
-                        </button>
-                    </th>
-                    <th>Telefon</th>
-                </tr>
-            </thead>
-            <tbody>
-                @for (article of paginatedList; let i = $index; track $index) {
-                <tr (click)="toggleExpand($index)" class="clickable-row">
-                    <td><span>{{ article.firstname }}</span></td>
-                    <td><span>{{ article.surname }}</span></td>
-                    <td><span>{{ getSexLabel(article.sex) }}</span></td>
-                    <td><span>{{ getBirthDateFromId(article.personal_code) }}</span></td>
-                    <td><span>{{ article.phone }}</span></td>
-                </tr>  
-                <tr *ngIf="expandedRow === $index" class="expanded-row">
-                    <td colspan="5">
-                        <div class="list-details">
-                            <img [src]="article.image.large" alt="article.image-alt" class="list-image">
-                            <div [innerHTML]="article.body.slice(0, 300) + (article.body.length > 300 ? '…' : '')" class="list-body"></div>
-                        </div>
-                    </td>
-                </tr>     
-                }
-            </tbody>
-        </table>
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>
+                            <button (click)="sortBy('firstname')" class="sort-btn">
+                                Eesnimi
+                                <i [ngClass]="getSortIcon('firstname')"></i>
+                            </button>
+                        </th>
+                        <th>
+                            <button (click)="sortBy('surname')" class="sort-btn">
+                                Perekonnanimi
+                                <i [ngClass]="getSortIcon('surname')"></i>
+                            </button>
+                        </th>
+                        <th>
+                            <button (click)="sortBy('sex')" class="sort-btn">
+                                Sugu
+                                <i [ngClass]="getSortIcon('sex')"></i>
+                            </button>
+                        </th>
+                        <th>
+                            <button (click)="sortBy('personal_code')" class="sort-btn">
+                                Sünnikuupäev
+                                <i [ngClass]="getSortIcon('personal_code')"></i>
+                            </button>
+                        </th>
+                        <th>Telefon</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (article of paginatedList; let i = $index; track $index) {
+                    <tr (click)="toggleExpand($index)" class="clickable-row">
+                        <td><span>{{ article.firstname }}</span></td>
+                        <td><span>{{ article.surname }}</span></td>
+                        <td><span>{{ getSexLabel(article.sex) }}</span></td>
+                        <td><span>{{ getBirthDateFromId(article.personal_code) }}</span></td>
+                        <td><span>{{ article.phone }}</span></td>
+                    </tr>  
+                    <tr *ngIf="expandedRow === $index" class="expanded-row">
+                        <td colspan="5">
+                            <div class="list-details">
+                                <img [src]="article.image.large" alt="article.image-alt" class="list-image">
+                                <div [innerHTML]="article.body.slice(0, 300) + (article.body.length > 300 ? '…' : '')" class="list-body"></div>
+                            </div>
+                        </td>
+                    </tr>     
+                    }
+                </tbody>
+            </table>
+        </div>
         <div class="pagination">
             <button (click)="currentPage.set(currentPage() - 1)" [disabled]="currentPage() === 1">
                 <i class="fa-solid fa-chevron-left"></i>
