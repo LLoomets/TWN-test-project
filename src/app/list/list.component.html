@@ -2,7 +2,7 @@
     <div class="page-layout">
         <h1>Nimekiri</h1>
         <div class="table-wrapper">
-            <table>
+            <table *ngIf="paginatedList.length > 0; else loadingBlock">
                 <thead>
                     <tr>
                         <th>
@@ -53,7 +53,7 @@
                 </tbody>
             </table>
         </div>
-        <div class="pagination">
+        <div class="pagination" *ngIf="paginatedList.length > 0">
             <button (click)="currentPage.set(currentPage() - 1)" [disabled]="currentPage() === 1">
                 <i class="fa-solid fa-chevron-left"></i>
             </button>
@@ -66,5 +66,10 @@
                 <i class="fa-solid fa-chevron-right"></i>
             </button>
         </div>
+        <ng-template #loadingBlock>
+            <div class="loading-wrapper">
+                <img src="imgs/loader.svg" alt="Loading..." class="loader-img" />
+            </div>
+        </ng-template>
     </div>
 </div>

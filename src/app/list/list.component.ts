@@ -1,7 +1,7 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { Article } from '../model/article.model';
 import { ArticlesService } from '../services/articles.service';
-import { catchError } from 'rxjs';
+import { catchError, finalize } from 'rxjs';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -14,6 +14,7 @@ export class ListComponent implements OnInit {
   articleService = inject(ArticlesService);
   articleItems = signal<Article[]>([]);
   originalData: Article[] = [];
+  loading = signal(true);
 
   sortField: keyof Article | null = null;
   sortDirection: 'asc' | 'desc' | 'default' = 'default';
@@ -30,7 +31,8 @@ export class ListComponent implements OnInit {
         catchError((err) => {
           console.log(err);
           throw err;
-        })
+        }),
+        finalize(() => this.loading.set(false))
       )
       .subscribe((article: Article[]) => {
         this.articleItems.set(article);

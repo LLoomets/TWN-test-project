@@ -2,7 +2,7 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ArticlesService } from '../services/articles.service';
 import { Article } from '../model/article.model';
-import { catchError } from 'rxjs';
+import { catchError, finalize } from 'rxjs';
 
 @Component({
   selector: 'app-article',
@@ -13,6 +13,7 @@ import { catchError } from 'rxjs';
 export class ArticleComponent implements OnInit {
   articleService = inject(ArticlesService);
   article = signal<Article | null>(null);
+  loading = signal(true);
 
   ngOnInit(): void {
     this.articleService
@@ -21,10 +22,11 @@ export class ArticleComponent implements OnInit {
         catchError((err) => {
           console.log(err);
           throw err;
-        })
+        }),
+        finalize(() => this.loading.set(false))
       )
       .subscribe((article) => {
-        this.article.set(article)
+        this.article.set(article);
       });
   }
 }
